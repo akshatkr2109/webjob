@@ -1,0 +1,19 @@
+trigger:
+  - main
+
+pool: default
+
+steps:
+- script: echo 'Building and packaging WebJob...'
+  displayName: 'Build and Package WebJob'
+  # Add your build and packaging commands here, depending on your application stack
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(3fb6f8e1-e295-4cc2-92b2-3952e76acb9d)'
+    appType: 'webApp'
+    WebAppName: 'app739'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    enableCustomDeployment: true
+    DeploymentType: 'zipDeploy'
